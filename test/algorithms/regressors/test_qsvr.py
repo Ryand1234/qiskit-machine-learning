@@ -48,16 +48,25 @@ class TestQSVR(QiskitMachineLearningTestCase):
 
         self.sample_train = np.asarray(
             [
-                [3.07876080, 1.75929189],
-                [6.03185789, 5.27787566],
-                [6.22035345, 2.70176968],
-                [0.18849556, 2.82743339],
+                [5.46637121724624, 0.8168140899333463],
+                [3.5814156250923643, 4.523893421169302],
+                [4.775220833456486, 2.450442269800039],
+                [3.7070793312359562, 0.4398229715025711],
+                [0.7539822368615504, 0.4398229715025711],
+                [4.209734155810323, 3.9584067435231396],
+                [2.199114857512855, 1.9477874452256718],
             ]
         )
-        self.label_train = np.asarray([0, 0, 1, 1])
+        self.label_train = np.asarray([0, 0, 0, 1, 1, 1, 1])
 
-        self.sample_test = np.asarray([[2.199114860, 5.15221195], [0.50265482, 0.06283185]])
-        self.label_test = np.asarray([0, 1])
+        self.sample_test = np.asarray(
+            [
+                [2.261946710584651, 4.900884539600078],
+                [2.9530970943744057, 2.387610416728243],
+                [5.529203070318037, 0.3769911184307752],
+            ]
+        )
+        self.label_test = np.asarray([1, 0, 1])
 
     def test_qsvr(self):
         """Test QSVR"""
@@ -69,7 +78,7 @@ class TestQSVR(QiskitMachineLearningTestCase):
         qsvr.fit(self.sample_train, self.label_train)
         score = qsvr.score(self.sample_test, self.label_test)
 
-        self.assertAlmostEqual(score, 0.38365, places=4)
+        self.assertAlmostEqual(score, 0.36491, places=4)
 
     def test_empty_kernel(self):
         """Test QSVR with empty QuantumKernel"""
@@ -90,7 +99,7 @@ class TestQSVR(QiskitMachineLearningTestCase):
         qsvr.fit(self.sample_train, self.label_train)
         score = qsvr.score(self.sample_test, self.label_test)
 
-        self.assertAlmostEqual(score, 0.38365, places=4)
+        self.assertAlmostEqual(score, 0.36491, places=4)
 
     def test_qsvr_parameters(self):
         """Test QSVR with extra constructor parameters"""
@@ -103,7 +112,7 @@ class TestQSVR(QiskitMachineLearningTestCase):
         qsvr.fit(self.sample_train, self.label_train)
         score = qsvr.score(self.sample_test, self.label_test)
 
-        self.assertAlmostEqual(score, 0.38365, places=4)
+        self.assertAlmostEqual(score, 0.36472, places=4)
 
     def test_qsvc_to_string(self):
         """Test QSVR print works when no *args passed in"""
